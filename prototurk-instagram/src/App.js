@@ -2,9 +2,9 @@
 function App() {
   return (
    <>
-   <h1 className="text-3xl font-bold underline">
+   <div className="h-full w-full flex items-center justify-center">
       İnstagram Clone!
-    </h1>
+    </div>
    </>
   );
 }

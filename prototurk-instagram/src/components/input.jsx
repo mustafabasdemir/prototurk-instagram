@@ -11,7 +11,7 @@ export default function Input({label,type,...props}){
             {label} </small>
             
             {/* hide show button */}
-            {type === 'password' &&(
+            {type === 'password' && props.value &&(
                     <button type="button" onClick={()=> setShow(show=> !show)} className="absolute top-0 right-0 h-full flex items-center text-sm font-semibold right-2">
                         {show? 'Hide':'Show'}
                     </button>

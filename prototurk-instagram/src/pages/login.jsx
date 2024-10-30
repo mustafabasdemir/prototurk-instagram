@@ -23,7 +23,13 @@ export default function Login()
 
     return (
         <>
-          <div className="h-full w-full flex gap-x-8 justify-center my-24">
+          {/* 
+          
+          <div className="h-full w-full flex  flex-wrap overflow-auto gap-x-8  justify-center my-24"> 
+          
+          -- buradaki div  auth/index js de dıs cerceve olarak olarak ayalandi bu login sayfası 
+          -- children olarak ayarlandı auth/index js de dıs cerceve içine geliyor routes.js sayfasında ayarlandı
+          */}
             {/* LOGIN PHONE START */}
             {/* login phone / relative: sayfada yerini korur*/}
             <div className="w-[380px] h-[581px] relative bg-logo-pattern bg-[length:468.32px_634.15px] bg-[top_left_-46px]">
@@ -191,7 +197,7 @@ export default function Login()
             </footer>
     
             
-          </div>
+          {/* </div>  -- bu div ile ilgili acıklama yukarıda*/}
         </>
       );
 }

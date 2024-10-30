@@ -3,13 +3,15 @@ import Input from "components/input";
 import { useEffect, useState } from "react";
 
 // ---- auth import 
-
 import { useNavigate,useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { setUser } from "store/auth";
+
+//-- firebase.js login import  
+import { login } from "firebase.jsx";
 
 export default function Login()
 {
+
     const [activeIndex, setActiveIndex] = useState(0);
 
     //log in button enabled , disabled settings
@@ -18,7 +20,6 @@ export default function Login()
     const enable = username && password;
 
     //auth import set veriable
-    const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -34,11 +35,10 @@ export default function Login()
     }, []);
 
 
-    const handleSubmit = e =>{ //formdaki login butonu tıklandıgında calısacak fonk.
+    const handleSubmit = async e =>{ //formdaki login butonu tıklandıgında calısacak fonk.
       e.preventDefault()
-      dispatch(setUser({
-        username //dispatch, Redux storedaki setuser eylemını cagırır ve username degerını gonderır 
-      }))
+      await login(username,password)
+
       navigate(location.state?.return_url || '/',{
         replace:true 
         /*

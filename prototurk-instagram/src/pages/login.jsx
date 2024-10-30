@@ -2,6 +2,12 @@ import { ImFacebook2 } from "react-icons/im";
 import Input from "components/input";
 import { useEffect, useState } from "react";
 
+// ---- auth import 
+
+import { useNavigate,useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "store/auth";
+
 export default function Login()
 {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -11,7 +17,13 @@ export default function Login()
     const [password, setPassword] = useState("");
     const enable = username && password;
 
-    useEffect(() => {
+    //auth import set veriable
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    
+    useEffect(() => {//login phone ımg loop
       const intervalId = setInterval(() => {
         // Bir sonraki resmi göster
         setActiveIndex((prevIndex) => (prevIndex + 1) % 4);
@@ -20,6 +32,28 @@ export default function Login()
       // Temizlik işlevi
       return () => clearInterval(intervalId);
     }, []);
+
+
+    const handleSubmit = e =>{ //formdaki login butonu tıklandıgında calısacak fonk.
+      e.preventDefault()
+      dispatch(setUser({
+        username //dispatch, Redux storedaki setuser eylemını cagırır ve username degerını gonderır 
+      }))
+      navigate(location.state?.return_url || '/',{
+        replace:true 
+        /*
+        location.state?.return_url: Kullanıcının daha önce gitmek istediği URL'yi alır. 
+        eğer yoksa '/' yonlendırılır.
+
+
+          replace : true =>  Kullanıcı giriş yaptıktan sonra
+          genellikle giriş sayfasına geri dönmek istemeyiz.
+          Bu nedenle, kullanıcıyı yönlendirdiğimizde replace: true kullanmak mantıklıdır
+          böylece kullanıcı geri tuşuna bastığında giriş sayfasına dönmez.
+
+        */
+      })
+    }
 
     return (
         <>
@@ -81,7 +115,7 @@ export default function Login()
                 </a>
     
                 {/* login form */}
-                <form className="grid gap-y-1.5">
+                <form onSubmit={handleSubmit} className="grid gap-y-1.5">
                   {/* username */}
                   <Input
                     type="text"

@@ -1,8 +1,10 @@
+import { useSelector } from "react-redux";
 import { Navigate , useLocation} from "react-router-dom"
 
 export default function PrivateRoute({children}){
 
-    const user = false
+    const user = useSelector(state=>state.auth.user)  //store/auth içideki initialState içindeki user durumunu aldık
+
     const location = useLocation(); // Kullanıcının mevcut konumu
     if(!user)  //kulanici giriş yapmadıysa giriş sayfasına yonlendırme yapılır
     {

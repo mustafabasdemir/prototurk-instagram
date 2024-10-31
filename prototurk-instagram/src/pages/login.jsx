@@ -2,6 +2,8 @@ import { ImFacebook2 } from "react-icons/im";
 import Input from "components/input";
 import { useEffect, useState } from "react";
 
+//footer 
+import Footer from "components/footer/footer";
 
 // ---- auth import 
 import { useNavigate,useLocation } from "react-router-dom";
@@ -12,6 +14,8 @@ import { login } from "firebase.jsx";
 import InstagramLogo from "components/instagramLogo/instagramLogo";
 import { Form, Formik } from "formik";
 import { LoginValidationSchema } from "validation";
+import ImagesModule from "components/images/images";
+
 
 export default function Login()
 {
@@ -66,34 +70,15 @@ export default function Login()
         <div className="w-[380px] h-[581px] relative bg-logo-pattern bg-[length:468.32px_634.15px] bg-[top_left_-46px]">
           {/* phone picture */}
           <div className="w-[250px] h-[538px] absolute top-[27px] right-[18px]">
-            <img
-              className={`w-full h-full absolute top-0 left-0 transition-opacity duration-1000  ease-linear ${
-                activeIndex === 0 ? "opacity-100" : "opacity-0"
-              }`}
-              src="https://static.cdninstagram.com/images/instagram/xig/homepage/screenshots/screenshot3-2x.png?__d=www"
-              alt=""
-            />
-            <img
-              className={`w-full h-full absolute top-0 left-0 transition-opacity duration-1000  ease-linear ${
-                activeIndex === 1 ? "opacity-100" : "opacity-0"
-              }`}
-              src="https://static.cdninstagram.com/images/instagram/xig/homepage/screenshots/screenshot2-2x.png?__d=www"
-              alt=""
-            />
-            <img
-              className={`w-full h-full absolute top-0 left-0 transition-opacity duration-1000  ease-linear ${
-                activeIndex === 2 ? "opacity-100" : "opacity-0"
-              }`}
-              src="https://static.cdninstagram.com/images/instagram/xig/homepage/screenshots/screenshot4-2x.png?__d=www"
-              alt=""
-            />
-            <img
-              className={`w-full h-full absolute top-0 left-0 transition-opacity duration-1000  ease-linear ${
-                activeIndex === 3 ? "opacity-100" : "opacity-0"
-              }`}
-              src="https://static.cdninstagram.com/images/instagram/xig/homepage/screenshots/screenshot1-2x.png?__d=www"
-              alt=""
-            />
+            {ImagesModule.images.map((image) => (
+              <img
+                key={image.id}
+                className={`w-full h-full absolute top-0 left-0 transition-opacity duration-1000 ease-linear 
+                  ${activeIndex === image.id ? "opacity-100" : "opacity-0"}`}
+                src={image.src}
+                alt=""
+              />
+            ))}
           </div>
         </div>
         {/* LOGIN PHONE END  */}
@@ -146,20 +131,18 @@ export default function Login()
                   <button
                     type="submit"
                     className="h-[30px] rounded bg-brand text-white text-sm disabled:opacity-30"
-                    disabled={
-                      !(isValid && values.username && values.password)
-                    } // username ve password kontrolü
+                    disabled={!(isValid && values.username && values.password)} // username ve password kontrolü
                   >
                     Log In
                   </button>
 
                   {/* line Or  line*/}
-                  <div class="flex items-center my-2.5 mb-3.5">
-                    <div class="h-px bg-gray-300 flex-1"></div>
-                    <span class="px-4  text-[13px] text-gray-500 font-semibold">
+                  <div className="flex items-center my-2.5 mb-3.5">
+                    <div className="h-px bg-gray-300 flex-1"></div>
+                    <span className="px-4  text-[13px] text-gray-500 font-semibold">
                       OR
                     </span>
-                    <div class="h-px bg-gray-300 flex-1"></div>
+                    <div className="h-px bg-gray-300 flex-1"></div>
                   </div>
 
                   {/* facebook login */}
@@ -224,28 +207,7 @@ export default function Login()
         </div>
 
         {/* FOOTER */}
-
-        <footer className="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-8 fixed bottom-0">
-          <div className=" py-16">
-            <p className="flex justify-center flex-wrap gap-x-4 text-xs  text-gray-500">
-              <span>Meta</span>
-              <span>About</span>
-              <span>Blog</span>
-              <span>Jobs</span>
-              <span>API</span>
-              <span>Privacy</span>
-              <span>Terms</span>
-              <span>Top Accounts</span>
-              <span>Instagram Lite</span>
-              <span>Threads</span>
-              <span>Visual Arts</span>
-              <span>Meta Verified</span>
-            </p>
-            <p className="justify-center text-center mt-2 text-xs  text-gray-500">
-              © 2024 Instagram from Meta
-            </p>
-          </div>
-        </footer>
+        <Footer/>
 
         {/* </div>  -- bu div ile ilgili acıklama yukarıda*/}
       </>

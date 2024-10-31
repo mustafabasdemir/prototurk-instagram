@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import showAlert from "components/alerts/alert";
 import { initializeApp } from "firebase/app";
-import {getAuth,onAuthStateChanged, signInWithEmailAndPassword} from "firebase/auth";
+import {getAuth,onAuthStateChanged,signOut, signInWithEmailAndPassword} from "firebase/auth";
 import store from "store";
 import { setUser } from "store/auth";
 import { userHandle } from "utils";
@@ -48,4 +48,15 @@ export const login = async (email,password) =>
         showAlert('error',error.code)
     }
     
+}
+
+
+//kullanıcının cıkıs yapması için
+export const logout = async ()=> {
+    try{
+        await signOut(auth)
+    }catch(error)
+    {
+        showAlert('error',error.code)
+    }
 }

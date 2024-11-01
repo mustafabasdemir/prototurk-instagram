@@ -38,6 +38,24 @@ onAuthStateChanged(auth,user=>{
     userHandle(user || false)   
 })
 
+
+// Hata mesajlari
+function handleFirebaseError(error) {
+    const errorMessages = {
+        "auth/invalid-email": "E-posta adresi hatalı!",
+        "auth/wrong-password": "Şifre hatalı!",
+        "auth/user-not-found": "Kullanıcı bulunamadı!",
+        "auth/email-already-in-use": "Bu e-posta adresi zaten kullanımda!",
+        "auth/weak-password": "Şifre çok zayıf!",
+        // Diğer hata kodları için daha fazla mesaj ekleyebilirsiniz
+    };
+
+    const message = errorMessages[error.code] || "Bir hata oluştu!";
+    showAlert('error', message);
+}
+
+
+
 export const login = async (email,password) =>
 {
     try{
@@ -45,7 +63,7 @@ export const login = async (email,password) =>
       console.log(response.user)
     }catch(error)
     {
-        showAlert('error',error.code)
+        handleFirebaseError(error);
     }
     
 }
@@ -58,5 +76,6 @@ export const logout = async ()=> {
     }catch(error)
     {
         showAlert('error',error.code)
+        //console.log(error.code)
     }
 }

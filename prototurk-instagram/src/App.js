@@ -1,14 +1,13 @@
 import Loader from "components/loader/loader";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import routes from "routes";
 
 function App() {
 
   const user = useSelector(state=> state.auth.user)
   const showRoutes = useRoutes(routes);
-  const navigate = useNavigate();
   const [redirect , setRedirect] = useState(false)
 
   useEffect(()=>{

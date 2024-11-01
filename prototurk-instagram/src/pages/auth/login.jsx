@@ -1,4 +1,3 @@
-import { ImFacebook2 } from "react-icons/im";
 import Input from "components/input";
 import { useEffect, useState } from "react";
 
@@ -6,7 +5,7 @@ import { useEffect, useState } from "react";
 import Footer from "components/footer/footer";
 
 // ---- auth import 
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate,useLocation,Link} from "react-router-dom";
 import { setUser } from "store/auth";
 
 //-- firebase.js login import  
@@ -15,6 +14,9 @@ import InstagramLogo from "components/instagramLogo/instagramLogo";
 import { Form, Formik } from "formik";
 import { LoginValidationSchema } from "validation";
 import ImagesModule from "components/images/images";
+import LoginButton from "components/buttons/LoginButton";
+import FacebbokLogInButton from "components/buttons/FacebbokLogInButton";
+import AppsDownload from "components/AppsDownload/AppsDownload";
 
 
 export default function Login()
@@ -38,10 +40,12 @@ export default function Login()
 
 
     const handleSubmit = async (values,actions) =>{ //formdaki login butonu tıklandıgında calısacak fonk.
-      await login(values.username,values.password)  //formik'in gonderdıgı values degerleirnden aldık
-
-      navigate(location.state?.return_url || '/',{
-        replace:true   })
+      const response =await login(values.username,values.password)  //formik'in gonderdıgı values degerleirnden aldık
+      if(response)
+      {
+        navigate(location.state?.return_url || '/',{replace:true   })
+      }
+      
         /*
         location.state?.return_url: Kullanıcının daha önce gitmek istediği URL'yi alır. 
         eğer yoksa '/' yonlendırılır.
@@ -128,13 +132,12 @@ export default function Login()
                   />
 
                   {/* login button */}
-                  <button
-                    type="submit"
-                    className="h-[30px] rounded bg-brand text-white text-sm disabled:opacity-30"
-                    disabled={!(isValid && values.username && values.password)} // username ve password kontrolü
+                  <LoginButton  //components/button
+                    type="submit" disabled={!(isValid && values.username && values.password)} 
+                    // username ve password boş ise aktif olmasin
                   >
                     Log In
-                  </button>
+                  </LoginButton>
 
                   {/* line Or  line*/}
                   <div className="flex items-center my-2.5 mb-3.5">
@@ -146,12 +149,9 @@ export default function Login()
                   </div>
 
                   {/* facebook login */}
-                  <a href="/#" className="flex justify-center">
-                    <button className="flex items-center mt-8 text-sm font-bold text-blue-600">
-                      <ImFacebook2 className="mr-2" />
-                      Log in with Facebook
-                    </button>
-                  </a>
+                  <FacebbokLogInButton
+                  className="flex items-center mt-8 text-sm font-bold text-blue-600 "
+                  />
 
                   {/* forgot password */}
 
@@ -168,42 +168,15 @@ export default function Login()
           {/* Sign up container */}
           <div className="bg-white border mt-2 p-4 text-center">
             Don't have an account?
-            <a href="/#" className="font-semibold text-brand ml-2">
+            <Link to="/auth/register" className="font-semibold text-brand ml-2">
               Sign Up
-            </a>
+            </Link>
           </div>
 
           {/* Apps Download */}
+          <AppsDownload/>
+          
 
-          <div className="bg-zinc-50 mt-2 p-4 text-center">
-            Get the app.
-            <div className="flex justify-center mt-2">
-              {/* Flex  box */}
-              <a
-                href="https://play.google.com/store/apps/details?id=com.instagram.android&referrer=ig_mid%3DE12098AA-DAD2-41DA-863D-FF66D6ED0B42%26utm_campaign%3DunifiedHome%26utm_content%3Dlo%26utm_source%3Dinstagramweb%26utm_medium%3Dbadge"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="https://static.cdninstagram.com/rsrc.php/v3/yp/r/XUCupIzGmzB.png"
-                  alt=""
-                  className="mr-2 max-h-10"
-                />
-              </a>
-
-              <a
-                href="https://microsoft.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="https://static.cdninstagram.com/rsrc.php/v3/yf/r/BFthdeAc5KC.png"
-                  alt=""
-                  className="max-h-10" // Max height ayarı
-                />
-              </a>
-            </div>
-          </div>
         </div>
 
         {/* FOOTER */}

@@ -1,5 +1,6 @@
-import Login from "pages/login";
 import Home from "pages/home";
+import Login from "pages/auth/login";
+import Register from "pages/auth/register";
 import AuthLayout from "pages/auth";
 import PrivateRoute from "components/PrivateRoute";
 
@@ -17,6 +18,10 @@ const routes =
             {
                 path: 'login',             // 'login' rotası, '/auth/login' yolunu oluşturur.
                 element: <Login />         // Bu rota çağrıldığında Login bileşeni görüntülenir.
+            },
+            {
+                path:'register',
+                element:<Register/>
             }
         ]
     }

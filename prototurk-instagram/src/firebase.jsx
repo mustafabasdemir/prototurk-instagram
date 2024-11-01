@@ -91,6 +91,22 @@ export const logout = async ()=> {
     }
 }
 
+
+export const getUserInfo = async uname =>{
+    const username = await getDoc(doc(db,"usernames",uname))
+
+    if(username.exists())
+    {
+        const user = await getDoc(doc(db,"users",username.data().user_id))
+        return user
+
+    }else
+    {
+        ShowAlertMessage('error','Kullanıcı bulunamadı !')
+        throw new Error("kullanıcı bulunamadı")
+    }
+}
+
 export const register = async (email,full_name,username,password) =>
 {
     
@@ -119,6 +135,11 @@ export const register = async (email,full_name,username,password) =>
                     followers: [],
                     following: [],
                     notifications: [],
+                    website:'',
+                    bio:'',
+                    phoneNumber:'',
+                    gender:'',
+                    posts:0
                     });
 
                     await updateProfile(auth.currentUser, {

@@ -14,7 +14,7 @@ function App() {
 
     let timeout = setTimeout(() => {
       setRedirect(true)
-    }, 1200)
+    }, 2000)
     return()=>{
       clearTimeout(timeout)
     }

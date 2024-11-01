@@ -1,19 +1,32 @@
+import MainLayout from "pages/layout";
 import Home from "pages/home";
 import Login from "pages/auth/login";
 import Register from "pages/auth/register";
 import AuthLayout from "pages/auth";
 import PrivateRoute from "components/PrivateRoute";
+import Profile from "pages/profile";
+
 
 const routes =
 [
     {
         path:'/',
-        element:<Home/>,
-        auth:true  //kullanıcı gririş yapmamıssa home sayfasına girişi engellenir
+        element:<MainLayout/>,
+        auth:true,  //kullanıcı gririş yapmamıssa home sayfasına girişi engellenir
+        children:[
+            {
+                index:true,
+                element:<Home/>
+            },
+            {
+                path: ':username',
+                element:<Profile/>
+            }
+        ]
     },
     {
         path: '/auth',                    // '/auth' rotası, kimlik doğrulama ile ilgili sayfaların ana rotasıdır.
-        element: <AuthLayout />,           // Bu rotada, AuthLayout bileşeni dış çerçeve olarak kullanılır.
+        element: <AuthLayout />, // Bu rotada, AuthLayout bileşeni dış çerçeve olarak kullanılır.
         children: [                        // Alt rotalar (children) bu rotanın altında tanımlanır.
             {
                 path: 'login',             // 'login' rotası, '/auth/login' yolunu oluşturur.

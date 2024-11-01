@@ -1,8 +1,8 @@
 export default function Footer(){
     return(
-        <footer className="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-8 fixed bottom-0">
+        <footer className="mx-auto w-full max-w-container  top-0">
           <div className=" py-16">
-            <p className="flex justify-center flex-wrap gap-x-4 text-xs  text-gray-500">
+            <p className="flex justify-center flex-wrap gap-x-4 text-xs top-0 text-gray-500">
               <span>Meta</span>
               <span>About</span>
               <span>Blog</span>

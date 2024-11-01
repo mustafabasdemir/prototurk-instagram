@@ -7,7 +7,7 @@ import Footer from "components/footer/footer";
 import { useNavigate,useLocation, Link } from "react-router-dom";
 
 //-- firebase.js login import  
-import { login } from "firebase.jsx";
+import { register } from "firebase.jsx";
 import InstagramLogo from "components/instagramLogo/instagramLogo";
 import { Form, Formik } from "formik";
 import { registerValidationSchema } from "validation";
@@ -23,7 +23,7 @@ export default function Register()
     const location = useLocation()
 
     const handleSubmit = async (values,actions) =>{ //formdaki login butonu tıklandıgında calısacak fonk.
-      const response =await login(values.username,values.password)  //formik'in gonderdıgı values degerleirnden aldık
+      const response =await register(values.email,values.username,values.username,values.password)  //formik'in gonderdıgı values degerleirnden aldık
       if(response)
       {
         navigate(location.state?.return_url || '/',{replace:true   })

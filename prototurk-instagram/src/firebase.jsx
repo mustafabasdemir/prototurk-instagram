@@ -6,6 +6,12 @@ import {getAuth,onAuthStateChanged,signOut, signInWithEmailAndPassword, createUs
 import store from "store";
 import { setUser } from "store/auth";
 import { userHandle } from "utils";
+import {getFirestore,doc,getDoc,setDoc}  from "firebase/firestore"
+
+
+
+
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -27,16 +33,33 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
 const auth  = getAuth()
+const db = getFirestore(app)
 
-onAuthStateChanged(auth,user=>{
+
+
+onAuthStateChanged(auth,async user=>{
     /* 
     onAuthStateChanged, kullanıcının oturum açma durumu değiştiğinde tetiklenir. 
     Yani, kullanıcı giriş yaptığında veya çıkış yaptığında bu işlev çalışır.
     kullanıcının giriş cıkısına gore durumu guncellenecek
     */
-    userHandle(user || false)   
+
+    if(user){
+        const dbUser = await getDoc(doc(db,"users",user.uid))
+        let data ={
+            uid: user.uid,
+            fullName: user.displayName,
+            email: user.email,
+            emailVerified: user.emailVerified,
+            ...dbUser.data()
+        }
+        console.log(data)
+        userHandle(data)
+    }else{
+        userHandle(false)   
+    }
+    
 })
 
 
@@ -46,10 +69,12 @@ export const login = async (email,password) =>
 {
     try{
       const response =  await signInWithEmailAndPassword(auth,email,password)
-      console.log(response.user)
+      return response
+      //console.log(response.user)
     }catch(error)
     {
         ShowAlertMessage('error', error);
+        alert(error.code)
     }
     
 }
@@ -70,12 +95,42 @@ export const register = async (email,full_name,username,password) =>
 {
     
     try{
-      //alert(email)
-      const response =  await createUserWithEmailAndPassword(auth,email,password)
-      await updateProfile(auth.currentUser,{
-        displayName:full_name
-      })
-        ShowAlertMessage('success', 'Kayıt işlemi başarılı!');
+            const user=await getDoc(doc(db,"usernames",username))
+
+            if(user.exists()){  //kullanici adını kullanan varsa
+                ShowAlertMessage("error", "kullanıcı adını başkası kullanıyor.");
+            }
+            else
+            {
+                const response =  await createUserWithEmailAndPassword(auth,email,password)
+
+                if (response.user) 
+                {
+
+                    await setDoc(doc(db,"usernames",username),{
+                        user_id:response.user.uid
+                    })
+
+
+                    //user tablosune ekle
+                    await setDoc(doc(db, "users", response.user.uid), {
+                    fullName: full_name,
+                    userName: username,
+                    followers: [],
+                    following: [],
+                    notifications: [],
+                    });
+
+                    await updateProfile(auth.currentUser, {
+                    displayName: full_name,
+                    });
+                    ShowAlertMessage("success", "Kayıt işlemi başarılı!");
+
+                    return response.user;
+                }
+            }
+        
+
     }catch(error)
     {
         ShowAlertMessage('error', error);

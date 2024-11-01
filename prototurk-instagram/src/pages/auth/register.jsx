@@ -76,32 +76,20 @@ export default function Register()
               {({ isSubmitting, isValid, dirty, values }) => (
                 <Form className="grid gap-y-1.5">
                   {/* email */}
-                  <Input
-                    type="text"
-                    name="email"
-                    label="Email"
-                  />
+                  <Input name="email" label="Email"/>
                   {/* Full Name */}
-                  <Input
-                    type="text"
-                    name="full_name"
-                    label="Full Name"
-                  />
+                  <Input name="full_name" label="Full Name"/>
                   {/* username */}
-                  <Input
-                    type="text"
-                    name="username"
-                    label="Phone number,username or mail"
-                  />
+                  <Input name="username" label="Username"/>
                   {/* password */}
                   <Input type="password" name="password" label="Password" />
 
-                    <p className="text-xs text-[#8e8e8e] py-2">
-					    People who use our service may have uploaded your contact information to Instagram. <a href="#" className="font-semibold">Learn More</a>
-					    <br/><br/>
-					    By signing up, you agree to our <a href="#" className="font-semibold">Terms</a>, <a href="#" className="font-semibold">Data Policy</a> and <a
-					    href="#" className="font-semibold">Cookies Policy</a>.
-					</p>
+                  <p className="text-xs text-[#8e8e8e] py-2">
+					            People who use our service may have uploaded your contact information to Instagram. <a href="#" className="font-semibold">Learn More</a>
+					            <br/><br/>
+					            By signing up, you agree to our <a href="#" className="font-semibold">Terms</a>, <a href="#" className="font-semibold">Data Policy</a> and 
+                      <a href="#" className="font-semibold">Cookies Policy</a>.
+					        </p>
 
                   {/* sign button */}
                   <LoginButton //components/button

@@ -8,8 +8,10 @@ import Yup from "./validate";
 */
 
 export const registerValidationSchema = Yup.object().shape({
-    email:Yup.string().required().email(),
-    full_name:Yup.string().required(),
-    username : Yup.string().required(),
-    password : Yup.string().required()
-})
+  email: Yup.string().required().email(),
+  full_name: Yup.string().required(),
+  username: Yup.string()
+                .required()
+                .test('is-valid-username', 'Geçerli bir kullanıcı adı girin', str => /^[a-zA-Z0-9\.]+$/.test(str)),
+  password: Yup.string().required(),
+});

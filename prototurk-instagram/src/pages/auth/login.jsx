@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Footer from "components/footer/footer";
 
 // ---- auth import 
-import { useNavigate,useLocation,Link} from "react-router-dom";
+import {Navigate, useNavigate,useLocation,Link} from "react-router-dom";
 import { setUser } from "store/auth";
 
 //-- firebase.js login import  
@@ -17,14 +17,14 @@ import ImagesModule from "components/images/images";
 import LoginButton from "components/buttons/LoginButton";
 import FacebbokLogInButton from "components/buttons/FacebbokLogInButton";
 import AppsDownload from "components/AppsDownload/AppsDownload";
+import { useSelector } from "react-redux";
 
 
 export default function Login()
 {
-   
+    const user = useSelector(state=> state.auth.user)
     const [activeIndex, setActiveIndex] = useState(0);
     //auth import set veriable
-    const navigate = useNavigate()
     const location = useLocation()
 
     
@@ -38,15 +38,12 @@ export default function Login()
       return () => clearInterval(intervalId);
     }, []);
 
-
-    const handleSubmit = async (values,actions) =>{ //formdaki login butonu tıklandıgında calısacak fonk.
-      const response =await login(values.username,values.password)  //formik'in gonderdıgı values degerleirnden aldık
-      if(response)
+    //kullanıcı varsa yonlendır
+    if(user)
       {
-        navigate(location.state?.return_url || '/',{replace:true   })
-      }
-      
-        /*
+        return <Navigate to={location.state?.return_url || '/'} replace={true} />
+
+                /*
         location.state?.return_url: Kullanıcının daha önce gitmek istediği URL'yi alır. 
         eğer yoksa '/' yonlendırılır.
 
@@ -57,7 +54,10 @@ export default function Login()
           böylece kullanıcı geri tuşuna bastığında giriş sayfasına dönmez.
 
         */
-    
+      }
+
+    const handleSubmit = async (values,actions) =>{ //formdaki login butonu tıklandıgında calısacak fonk.
+      await login(values.username,values.password)  //formik'in gonderdıgı values degerleirnden aldık
     }
 
     return (

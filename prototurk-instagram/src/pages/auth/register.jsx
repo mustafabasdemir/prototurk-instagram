@@ -14,6 +14,7 @@ import { registerValidationSchema } from "validation";
 import LoginButton from "components/buttons/LoginButton";
 import FacebbokLogInButton from "components/buttons/FacebbokLogInButton";
 import AppsDownload from "components/AppsDownload/AppsDownload";
+import { Helmet } from "react-helmet";
 
 
 export default function Register()
@@ -34,8 +35,12 @@ export default function Register()
     return (
       <>
         <div className="w-[350px] ">
-          {/* LOGIN FORM START */}
 
+        <Helmet>
+				<title>Register - Instagram</title>
+			  </Helmet>
+
+          {/* LOGIN FORM START */}
           <div className="bg-white border p-[40px] pt-10 pb-6">
             {/* logo */}
             <a href="/#" className="flex justify-center mb-4">

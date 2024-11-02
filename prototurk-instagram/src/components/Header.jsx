@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import InstagramLogo from "./instagramLogo/instagramLogo";
 import Search from "./Search";
 import { logout } from "firebase.jsx";
@@ -7,8 +7,11 @@ import { LiaFacebookMessenger } from "react-icons/lia";
 import { CiSquarePlus } from "react-icons/ci";
 import { IoCompassOutline } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
+import { useSelector } from "react-redux";
 
 export default function Header(){
+
+    const user= useSelector(state=> state.auth.user)
     
     return (
       <header className="h-[60px] bg-white border-b border-gray-300">
@@ -22,9 +25,9 @@ export default function Header(){
           <Search />
 
           <nav className="flex items-center text-[24px] gap-x-6">
-            <button>
+            <NavLink to={`/`}>
               <GoHome/>
-            </button>
+            </NavLink>
             <button>
               <LiaFacebookMessenger />
             </button>
@@ -38,9 +41,9 @@ export default function Header(){
               <CiHeart />
             </button>
             
-            <button onClick={logout}>
+            <NavLink to={`/${user.userName}`}>
               <img src="/InstaAvatar.jpg" alt="" className="w-6 h-6 rounded-full"/>  
-            </button>
+            </NavLink>
           </nav>
 
 

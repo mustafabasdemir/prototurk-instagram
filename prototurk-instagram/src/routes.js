@@ -4,7 +4,10 @@ import Login from "pages/auth/login";
 import Register from "pages/auth/register";
 import AuthLayout from "pages/auth";
 import PrivateRoute from "components/PrivateRoute";
-import Profile from "pages/profile";
+import ProfileLayout from "pages/profile";
+import ProfilePosts from "pages/profile/posts";
+import ProfileTagged from "pages/profile/tagged";
+import Logout from "pages/logout";
 
 
 const routes =
@@ -19,8 +22,22 @@ const routes =
                 element:<Home/>
             },
             {
+				path: 'logout',
+				element: <Logout />
+			},
+            {
                 path: ':username',
-                element:<Profile/>
+                element:<ProfileLayout/>,
+                children:[
+                    {
+                        index:true,
+                        element:<ProfilePosts/>
+                    },
+                    {
+                        path:'tagged',
+                        element:<ProfileTagged/>
+                    }
+                ]
             }
         ]
     },

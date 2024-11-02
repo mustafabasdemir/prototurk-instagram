@@ -18,6 +18,7 @@ import LoginButton from "components/buttons/LoginButton";
 import FacebbokLogInButton from "components/buttons/FacebbokLogInButton";
 import AppsDownload from "components/AppsDownload/AppsDownload";
 import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
 
 
 export default function Login()
@@ -72,6 +73,11 @@ export default function Login()
         {/* LOGIN PHONE START */}
         {/* login phone / relative: sayfada yerini korur*/}
         <div className="w-[380px] h-[581px] relative bg-logo-pattern bg-[length:468.32px_634.15px] bg-[top_left_-46px]">
+          
+        <Helmet>
+				<title>Login • Instagram</title>
+			  </Helmet>
+          
           {/* phone picture */}
           <div className="w-[250px] h-[538px] absolute top-[27px] right-[18px]">
             {ImagesModule.images.map((image) => (

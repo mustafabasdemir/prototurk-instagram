@@ -54,7 +54,7 @@ onAuthStateChanged(auth,async user=>{
             emailVerified: user.emailVerified,
             ...dbUser.data()
         }
-        console.log(data)
+        //console.log(data)
         userHandle(data)
     }else{
         userHandle(false)   
@@ -74,7 +74,7 @@ export const login = async (email,password) =>
     }catch(error)
     {
         ShowAlertMessage('error', error);
-        alert(error.code)
+        //alert(error.code)
     }
     
 }
@@ -97,7 +97,7 @@ export const getUserInfo = async uname =>{
 
     if(username.exists())
     {
-        const user = await getDoc(doc(db,"users",username.data().user_id))
+        const user = (await getDoc(doc(db,"users",username.data().user_id))).data()
         return user
 
     }else

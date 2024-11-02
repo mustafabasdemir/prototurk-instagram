@@ -1,9 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
 import InstagramLogo from "./instagramLogo/instagramLogo";
 import Search from "./Search";
-import { logout } from "firebase.jsx";
-import { GoHome } from "react-icons/go";
+import { GoHome, GoHomeFill } from "react-icons/go";
 import { LiaFacebookMessenger } from "react-icons/lia";
+import { FaFacebookMessenger } from "react-icons/fa6";
 import { CiSquarePlus } from "react-icons/ci";
 import { IoCompassOutline } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
@@ -24,25 +24,28 @@ export default function Header(){
           {/* Search Box */}
           <Search />
 
-          <nav className="flex items-center text-[24px] gap-x-6">
+          <nav className="flex items-center text-[24px] gap-x-4">
             <NavLink to={`/`}>
-              <GoHome/>
+              {({ isActive }) => (
+                // `isActive` durumuna göre `GoHome` veya `GoHomeFill` göster
+                isActive ? <GoHomeFill size={24} /> : <GoHome size={24} />
+              )}
+            </NavLink>
+            <NavLink  to="/inbox">
+              {({ isActive }) => (
+                // `isActive` durumuna göre `GoHome` veya `GoHomeFill` göster
+                isActive ? <FaFacebookMessenger  size={24} /> : <LiaFacebookMessenger size={24} />
+              )}
             </NavLink>
             <button>
-              <LiaFacebookMessenger />
-            </button>
-            <button>
               <CiSquarePlus />
-            </button>
-            <button>
-              <IoCompassOutline />
             </button>
             <button>
               <CiHeart />
             </button>
             
             <NavLink to={`/${user.userName}`}>
-              <img src="/InstaAvatar.jpg" alt="" className="w-6 h-6 rounded-full"/>  
+              <img src="/InstaAvatar.jpg" alt="" className="w-6 h-6 rounded-full "/>  
             </NavLink>
           </nav>
 

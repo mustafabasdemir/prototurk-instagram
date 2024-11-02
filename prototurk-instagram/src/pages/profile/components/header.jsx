@@ -1,7 +1,10 @@
+import { useSelector } from "react-redux"
+
 export default function Header({ user }) {
 	return (
 		<header className="flex items-center px-24 gap-x-24 py-4 pb-10">
-			<img src="/InstaAvatar.jpg" alt="" className="w-[150px] h-[150px] rounded-full"/>
+			
+			<img src={user.fullName === "mustafabasdemir" ? "/InstaAvatar.jpg" : "/defaultAvatar.png"}  alt="" className="w-[150px] h-[150px] rounded-full"/>
 			<div>
 				<div className="mb-4">
 					<h1 className="text-[28px] font-light">{user.fullName}</h1>

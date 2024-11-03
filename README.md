@@ -1,4 +1,4 @@
-# React - Tailwind Instagram Clone
+# React - Tailwind - Firebase Instagram Clone
 
 ## authentication
 
